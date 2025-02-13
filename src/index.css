@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "JejuMyeongjo";
+  src: url('assets/fonts/ieju-myeongjo-regular.ttf')
+}
+
+@layer base {
+  :root {
+    --background: 188 87% 6%;
+    --foreground: 0 0% 70%;
+    --black: 223 26% 5%;
+    --grey-98: 0 0% 98%;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.event-info-section {
+  background:
+    radial-gradient(80.42% 91.59% at 25.02% 15.06%,
+      hsla(189, 67%, 43%, 0.2) 0%,
+      hsla(189, 67%, 43%, 0) 100%),
+    hsla(223, 26%, 5%, 0.1);
+}

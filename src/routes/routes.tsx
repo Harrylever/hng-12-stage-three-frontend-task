@@ -22,6 +22,10 @@ const routes = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "*",
+    element: <Navigate to="/events" />,
+  },
 ])
 
 export default routes

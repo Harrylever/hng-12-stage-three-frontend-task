@@ -1,6 +1,6 @@
 import { createContext, useContext, useMemo, useState } from "react"
 
-interface IAttendeeDetails {
+export interface IAttendeeDetails {
   imageUri: string | null
   name: string
   email: string
@@ -49,7 +49,7 @@ const AttendeeDetailsContextProvider = ({
     [attendeeDetails]
   )
 
-  return (
+  return (~
     <AttendeeDetailsContext.Provider value={values}>
       {children}
     </AttendeeDetailsContext.Provider>

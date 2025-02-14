@@ -1,6 +1,14 @@
+import { IAttendeeDetails } from "./attendee-details"
 import { EventFormProps } from "./form-context"
+import { TicketType } from "./ticket-context"
 
 const ATTENDEE_TICKET_INFORMATION = "attendee-ticket-information"
+
+interface IAttendeeTicketDetails {
+  attendeeDetails: IAttendeeDetails
+  numberOfTickets: EventFormProps["numberOfTickets"]
+  ticketType: TicketType
+}
 
 export function persistAttendeeTicketDetails({
   attendeeDetails,
@@ -14,12 +22,6 @@ export function persistAttendeeTicketDetails({
   }
 
   window.localStorage.setItem(ATTENDEE_TICKET_INFORMATION, JSON.stringify(data))
-}
-
-interface IAttendeeTicketDetails {
-  attendeeDetails: EventFormProps["attendeeDetails"]
-  numberOfTickets: EventFormProps["numberOfTickets"]
-  ticketType: EventFormProps["ticketType"]
 }
 
 export function fetchAttendeeTicketDetails(): IAttendeeTicketDetails | null {

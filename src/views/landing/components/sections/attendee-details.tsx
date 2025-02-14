@@ -1,27 +1,36 @@
-import { FormEvent } from "react"
+import { FormEvent, memo, useCallback } from "react"
 import { Mail } from "lucide-react"
 import Dropzone from "../dropzone"
 import toast from "react-hot-toast"
 import { delay } from "../../../../lib/utils"
 import SectionWrapper from "../section-wrapper"
 import FormControlButtons from "../form-control-buttons"
+import { useTicketContext } from "../../utils/ticket-context"
 import { useEventFormContext } from "../../utils/form-context"
+import { useAttendeeDetailsContext } from "../../utils/attendee-details"
+import { persistAttendeeTicketDetails } from "../../utils/persist-ticket-details"
 
 const AttendeeDetails = () => {
   const {
-    attendeeDetails,
-    setAttendeeDetails,
+    numberOfTickets,
     setActiveSection,
     setIsLoading,
     clearFormData,
   } = useEventFormContext()
 
-  const handleSetAttendeeDetails = (name: string, value: string) => {
-    setAttendeeDetails({
-      ...attendeeDetails,
-      [name]: value,
-    })
-  }
+  const { attendeeDetails, setAttendeeDetails } = useAttendeeDetailsContext()
+
+  const { ticketType } = useTicketContext()
+
+  const handleSetAttendeeDetails = useCallback(
+    (name: string) => (value: string) => {
+      setAttendeeDetails({
+        ...attendeeDetails,
+        [name]: value,
+      })
+    },
+    [attendeeDetails, setAttendeeDetails]
+  )
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -43,6 +52,11 @@ const AttendeeDetails = () => {
 
     setIsLoading(true)
     await delay()
+    persistAttendeeTicketDetails({
+      attendeeDetails,
+      numberOfTickets,
+      ticketType,
+    })
     setIsLoading(false)
     setActiveSection("ticket-booked")
   }
@@ -64,7 +78,7 @@ const AttendeeDetails = () => {
             <Dropzone
               imageUri={attendeeDetails.imageUri}
               setImageUri={(imageUri) =>
-                handleSetAttendeeDetails("imageUri", imageUri)
+                handleSetAttendeeDetails("imageUri")(imageUri)
               }
             />
           </div>
@@ -85,7 +99,7 @@ const AttendeeDetails = () => {
               id="fullname"
               className="w-full p-3 bg-transparent border border-[hsl(189,80%,14%)] focus:outline-none rounded-xl text-white font-roboto"
               value={attendeeDetails.name}
-              onChange={(e) => handleSetAttendeeDetails("name", e.target.value)}
+              onChange={(e) => handleSetAttendeeDetails("name")(e.target.value)}
             />
           </div>
         </div>
@@ -105,7 +119,7 @@ const AttendeeDetails = () => {
               className="w-full bg-transparent border-none focus:outline-none text-white font-roboto"
               value={attendeeDetails.email}
               onChange={(e) =>
-                handleSetAttendeeDetails("email", e.target.value)
+                handleSetAttendeeDetails("email")(e.target.value)
               }
             />
           </div>
@@ -124,7 +138,7 @@ const AttendeeDetails = () => {
               placeholder="Textarea"
               value={attendeeDetails.specialRequest}
               onChange={(e) =>
-                handleSetAttendeeDetails("specialRequest", e.target.value)
+                handleSetAttendeeDetails("specialRequest")(e.target.value)
               }
             ></textarea>
           </div>
@@ -141,4 +155,4 @@ const AttendeeDetails = () => {
   )
 }
 
-export default AttendeeDetails
+export default memo(AttendeeDetails)

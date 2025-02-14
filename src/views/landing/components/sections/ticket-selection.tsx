@@ -3,16 +3,18 @@ import { cn, delay } from "../../../../lib/utils"
 import { ChevronDown } from "lucide-react"
 import SectionWrapper from "../section-wrapper"
 import FormControlButtons from "../form-control-buttons"
-import { EventFormProps, useEventFormContext } from "../../utils/form-context"
+import { useEventFormContext } from "../../utils/form-context"
+import { TicketType, useTicketContext } from "../../utils/ticket-context"
 
 const TicketSelection = () => {
   const {
     setActiveSection,
     numberOfTickets,
     setNumberOfTickets,
-    setTicketType,
     setIsLoading,
   } = useEventFormContext()
+
+  const { setTicketType } = useTicketContext()
 
   const handleSubmit = async () => {
     setIsLoading(true)
@@ -143,13 +145,13 @@ interface TicketTypeTabProps {
     cost: string
     description: string
     label: string
-    type: EventFormProps["ticketType"]
+    type: TicketType
   }
   onClick?: () => void
 }
 
 const TicketTypeTab = ({ type, onClick }: TicketTypeTabProps) => {
-  const { ticketType } = useEventFormContext()
+  const { ticketType } = useTicketContext()
 
   return (
     <div

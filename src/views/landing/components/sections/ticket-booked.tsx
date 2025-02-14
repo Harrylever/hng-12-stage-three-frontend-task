@@ -2,35 +2,39 @@ import toast from "react-hot-toast"
 import SectionWrapper from "../section-wrapper"
 import { useToPng } from "@hugocxl/react-to-image"
 import FormControlButtons from "../form-control-buttons"
+import { useTicketContext } from "../../utils/ticket-context"
 import { useEventFormContext } from "../../utils/form-context"
+import { useAttendeeDetailsContext } from "../../utils/attendee-details"
+import { clearPersistedStorage } from "../../utils/persist-ticket-details"
 
 const TicketBooked = () => {
-  const {
-    setActiveSection,
-    attendeeDetails,
-    clearFormData,
-    ticketType,
-    numberOfTickets,
-  } = useEventFormContext()
+  const { clearFormData, numberOfTickets, setActiveSection } =
+    useEventFormContext()
+
+  const { ticketType, resetTicketType } = useTicketContext()
+
+  const { attendeeDetails } = useAttendeeDetailsContext()
 
   const handleBookAnotherTicket = () => {
     const response = confirm("Are you sure you want to leave?")
     if (!response) return
     clearFormData()
+    resetTicketType()
+    clearPersistedStorage()
     setActiveSection("ticket-selection")
   }
 
   const [, convertToPng, ref] = useToPng<HTMLDivElement>({
     onSuccess(data) {
-      const link = document.createElement('a')
-      link.download = 'TICZ-TICKET.png'
+      const link = document.createElement("a")
+      link.download = "TICZ-TICKET.png"
       link.href = data
       link.click()
       toast.dismiss()
     },
     onLoading() {
       toast.loading("Please wait...")
-    }
+    },
   })
 
   const handleDownloadTicket = () => {

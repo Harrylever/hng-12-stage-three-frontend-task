@@ -1,10 +1,31 @@
 import { useState } from "react"
-import { cn } from "../../../../lib/utils"
+import { cn, delay } from "../../../../lib/utils"
 import { ChevronDown } from "lucide-react"
 import SectionWrapper from "../section-wrapper"
 import FormControlButtons from "../form-control-buttons"
+import { EventFormProps, useEventFormContext } from "../../utils/form-context"
 
 const TicketSelection = () => {
+  const {
+    setActiveSection,
+    numberOfTickets,
+    setNumberOfTickets,
+    setTicketType,
+    setIsLoading,
+  } = useEventFormContext()
+
+  const handleSubmit = async () => {
+    setIsLoading(true)
+    await delay()
+    setIsLoading(false)
+    setActiveSection("attendee-details")
+  }
+
+  const handleCancel = () => {
+    const response = confirm("Are you sure you want to Cancel?")
+    if (response) window.location.reload()
+  }
+
   return (
     <SectionWrapper>
       <div className="w-full h-fit flex flex-col gap-8 rounded-[32px] bg-transparent sm:bg-[hsla(190,69%,10%)] border border-transparent sm:border-[hsla(188,69%,18%)] p-0 sm:p-6">
@@ -36,7 +57,11 @@ const TicketSelection = () => {
           <div className="flex flex-col p-4 items-center justify-center gap-4 self-stretch border border-[hsl(189,80%,14%)] rounded-3xl bg-[hsl(190,78%,9%)]">
             <div className="w-full flex flex-col sm:flex-row items-start justify-between self-stretch content-start gap-6">
               {TICKET_TYPES.map((type) => (
-                <TicketTypeTab key={type.id} type={type} />
+                <TicketTypeTab
+                  key={type.id}
+                  type={type}
+                  onClick={() => setTicketType(type.type)}
+                />
               ))}
             </div>
           </div>
@@ -44,18 +69,31 @@ const TicketSelection = () => {
 
         <div className="flex flex-col gap-2 self-stretch items-start">
           <p className="font-roboto text-grey-98">Number of Tickets</p>
-          <NumberOfTickets />
+          <NumberOfTickets
+            numberOfTickets={numberOfTickets}
+            setNumberOfTickets={setNumberOfTickets}
+          />
         </div>
 
-        <FormControlButtons />
+        <FormControlButtons
+          onPrevClick={handleCancel}
+          onNextClick={handleSubmit}
+        />
       </div>
     </SectionWrapper>
   )
 }
 
-const NumberOfTickets = () => {
+interface NumberOfTicketsProps {
+  numberOfTickets: number
+  setNumberOfTickets: (numOfTickets: number) => void
+}
+
+const NumberOfTickets = ({
+  numberOfTickets,
+  setNumberOfTickets,
+}: NumberOfTicketsProps) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [numberOfTickets, setNumberOfTickets] = useState(1)
 
   const handleSetNumberOfTickets = (numOfTickets: number) => {
     setNumberOfTickets(numOfTickets)
@@ -99,18 +137,26 @@ const NumberOfTickets = () => {
   )
 }
 
-const TicketTypeTab = ({
-  type,
-  activeId = 1,
-}: {
-  type: { id: number; cost: string; description: string; label: string }
-  activeId?: number
-}) => {
+interface TicketTypeTabProps {
+  type: {
+    id: number
+    cost: string
+    description: string
+    label: string
+    type: EventFormProps["ticketType"]
+  }
+  onClick?: () => void
+}
+
+const TicketTypeTab = ({ type, onClick }: TicketTypeTabProps) => {
+  const { ticketType } = useEventFormContext()
+
   return (
     <div
+      onClick={onClick}
       className={cn(
-        "w-full min-w-1/3 flex flex-col p-3 items-start gap-3 rounded-xl border-[hsl(189,69%,31%)]",
-        activeId === type.id
+        "w-full min-w-1/3 flex flex-col p-3 items-start gap-3 rounded-xl border-[hsl(189,69%,31%)] duration-200 cursor-pointer select-none",
+        ticketType === type.type
           ? "border bg-[hsl(188,62%,19%)]"
           : "border-2 bg-transparent"
       )}
@@ -118,21 +164,34 @@ const TicketTypeTab = ({
       <h4 className="text-white font-roboto text-2xl font-semibold capitalize">
         {type.cost}
       </h4>
-      <p className="font-roboto text-sm">{type.description}</p>
-      <small className="font-roboto text-sm">{type.label}</small>
+      <p className="font-roboto text-sm text-grey-98">{type.description}</p>
+      <small className="font-roboto text-sm text-grey-98">{type.label}</small>
     </div>
   )
 }
 
-const TICKET_TYPES = [
+const TICKET_TYPES: TicketTypeTabProps["type"][] = [
   {
     id: 1,
     cost: "free",
     description: "REGULAR ACCESS",
     label: "20/52",
+    type: "FREE",
   },
-  { id: 2, cost: "$150", description: "VIP ACCESS", label: "20/52" },
-  { id: 3, cost: "$150", description: "VVIP ACCESS", label: "20/52" },
+  {
+    id: 2,
+    cost: "$150",
+    description: "VIP ACCESS",
+    label: "20/52",
+    type: "VIP",
+  },
+  {
+    id: 3,
+    cost: "$150",
+    description: "VVIP ACCESS",
+    label: "20/52",
+    type: "VVIP",
+  },
 ] as const
 
 export default TicketSelection

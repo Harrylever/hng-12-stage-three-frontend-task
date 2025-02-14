@@ -1,7 +1,42 @@
-import FormControlButtons from "../form-control-buttons"
+import toast from "react-hot-toast"
 import SectionWrapper from "../section-wrapper"
+import { useToPng } from "@hugocxl/react-to-image"
+import FormControlButtons from "../form-control-buttons"
+import { useEventFormContext } from "../../utils/form-context"
 
 const TicketBooked = () => {
+  const {
+    setActiveSection,
+    attendeeDetails,
+    clearFormData,
+    ticketType,
+    numberOfTickets,
+  } = useEventFormContext()
+
+  const handleBookAnotherTicket = () => {
+    const response = confirm("Are you sure you want to leave?")
+    if (!response) return
+    clearFormData()
+    setActiveSection("ticket-selection")
+  }
+
+  const [, convertToPng, ref] = useToPng<HTMLDivElement>({
+    onSuccess(data) {
+      const link = document.createElement('a')
+      link.download = 'TICZ-TICKET.png'
+      link.href = data
+      link.click()
+      toast.dismiss()
+    },
+    onLoading() {
+      toast.loading("Please wait...")
+    }
+  })
+
+  const handleDownloadTicket = () => {
+    convertToPng()
+  }
+
   return (
     <SectionWrapper>
       <div className="w-full h-fit flex flex-col gap-8">
@@ -15,8 +50,11 @@ const TicketBooked = () => {
         </div>
 
         <div className="py-8 w-full flex items-center justify-center">
-          <div className="relative bg-subtract-bg w-[360px] h-[600px] sm:h-[715px] bg-no-repeat mx-auto bg-center bg-contain p-8">
-            <div className="w-full border-[1.5px] border-[hsl(189,67%,43%)] rounded-2xl p-[14px] flex flex-col items-center justify-start gap-5">
+          <div
+            ref={ref}
+            className="relative bg-subtract-bg w-[360px] h-[600px] sm:h-[715px] bg-no-repeat mx-auto bg-center bg-contain p-8"
+          >
+            <div className="w-full border-[1.5px] border-[hsl(189,67%,43%)] rounded-2xl p-[14px] flex flex-col items-center justify-start gap-5 scale-90 sm:scale-100">
               <div className="w-full text-center flex flex-col items-center">
                 <h3 className="text-[34px] font-normal font-road-rage text-grey-98">
                   Techember Fest ”25
@@ -34,8 +72,8 @@ const TicketBooked = () => {
 
               <div className="w-full flex flex-col items-center">
                 <img
-                  src="/user.png"
-                  alt="User image"
+                  src={attendeeDetails.imageUri ?? "/user.png"}
+                  alt={`${attendeeDetails.name} image`}
                   width={100}
                   height={100}
                 />
@@ -46,32 +84,32 @@ const TicketBooked = () => {
                     <p className="text-white font-roboto text-[10px] sm:text-xs opacity-[0.33]">
                       Enter your name
                     </p>
-                    <p className="font-roboto text-white font-bold text-sm">
-                      Avi Chukwu
+                    <p className="font-roboto text-white font-medium sm:font-bold text-[10px] sm:text-sm break-all capitalize">
+                      {attendeeDetails.name}
                     </p>
                   </div>
                   <div className="flex flex-col items-start gap-1 p-2 border-b border-[#12464E]">
                     <p className="text-white font-roboto  text-[10px] sm:text-xs opacity-[0.33]">
                       Enter your email *
                     </p>
-                    <p className="font-roboto text-white font-bold text-sm">
-                      User@email.com
+                    <p className="font-roboto text-white font-medium sm:font-bold text-[10px] sm:text-sm break-all lowercase">
+                      {attendeeDetails.email}
                     </p>
                   </div>
                   <div className="flex flex-col items-start gap-1 p-2 border-r border-b border-[#12464E]">
                     <p className="text-white font-roboto  text-[10px] sm:text-xs opacity-[0.33]">
                       Ticket Type:
                     </p>
-                    <p className="font-roboto text-white font-bold  text-[10px] sm:text-sm">
-                      VIP
+                    <p className="font-roboto text-white font-medium sm:font-bold text-[10px] sm:text-sm uppercase">
+                      {ticketType}
                     </p>
                   </div>
                   <div className="flex flex-col items-start gap-1 p-2 border-b border-[#12464E]">
                     <p className="text-white font-roboto  text-[10px] sm:text-xs opacity-[0.33]">
                       Ticket for:
                     </p>
-                    <p className="font-roboto text-white font-bold  text-[10px] sm:text-sm">
-                      1
+                    <p className="font-roboto text-white font-medium sm:font-bold text-[10px] sm:text-sm">
+                      {numberOfTickets}
                     </p>
                   </div>
                   <div className="col-span-2 flex flex-col items-start gap-1 p-2">
@@ -79,15 +117,14 @@ const TicketBooked = () => {
                       Special request?
                     </p>
                     <p className="font-roboto text-white font-bold  text-[10px] sm:text-sm">
-                      Nil ? Or the users sad story they write in there gets this
-                      whole space, Max of three rows
+                      {attendeeDetails.specialRequest}
                     </p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="absolute bottom-7 left-1/2 -translate-x-1/2 w-[200px]">
+            <div className="absolute bottom-8 sm:bottom-7 left-1/2 -translate-x-1/2 w-[190px] sm:w-[240px]">
               <img
                 src="/bar-code.svg"
                 alt="Bar Code"
@@ -100,6 +137,8 @@ const TicketBooked = () => {
         </div>
 
         <FormControlButtons
+          onPrevClick={handleBookAnotherTicket}
+          onNextClick={handleDownloadTicket}
           prevButtonLabel="Book Another Ticket"
           nextButtonLabel="Download Ticket"
         />

@@ -76,7 +76,7 @@ const TicketBooked = () => {
                   alt={`${attendeeDetails.name} image`}
                   width={100}
                   height={100}
-                  className="relative max-w-[100px] max-h-[100px]"
+                  className="relative max-w-[120px] max-h-[120px] object-cover"
                 />
               </div>
               <div className="w-full p-1 border border-[#133D44] bg-[#08343C] rounded-lg">

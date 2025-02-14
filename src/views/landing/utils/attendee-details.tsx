@@ -49,7 +49,7 @@ const AttendeeDetailsContextProvider = ({
     [attendeeDetails]
   )
 
-  return (~
+  return (
     <AttendeeDetailsContext.Provider value={values}>
       {children}
     </AttendeeDetailsContext.Provider>

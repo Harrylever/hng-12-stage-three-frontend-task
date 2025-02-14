@@ -6,7 +6,7 @@ const NavLinks = () => {
   const { pathname } = useLocation()
 
   return (
-    <div className="flex items-center justify-center gap-4">
+    <div className="hidden md:flex items-center justify-center gap-4">
       {NAV_LINKS.map((nav_link) => (
         <NavLink
           key={nav_link.id}

@@ -7,18 +7,20 @@ import FormControlButtons from "../form-control-buttons"
 const TicketSelection = () => {
   return (
     <SectionWrapper>
-      <div className="w-full h-fit flex flex-col gap-8 rounded-[32px] bg-[hsla(190,69%,10%)] border border-[hsla(188,69%,18%)] p-6">
+      <div className="w-full h-fit flex flex-col gap-8 rounded-[32px] bg-transparent sm:bg-[hsla(190,69%,10%)] border border-transparent sm:border-[hsla(188,69%,18%)] p-0 sm:p-6">
         {/* Event Info Section */}
         <div className="w-full flex flex-col gap-2 border-x-2 border-b-2 border-[hsl(189,80%,14%)] p-6 rounded-3xl event-info-section text-center">
-          <h3 className="text-6xl font-normal font-road-rage text-grey-98">
+          <h3 className="text-4xl sm:text-6xl font-normal font-road-rage text-grey-98">
             Techember Fest ”25
           </h3>
-          <p className="font-roboto text-base font-normal text-grey-98">
+          <p className="font-roboto text-sm sm:text-base font-normal text-grey-98">
             Join us for an unforgettable experience at <br /> [Event Name]!
             Secure your spot now.
           </p>
-          <p className="font-roboto text-grey-98">
-            📍 [Event Location] <span className="mx-2">&#124; &#124;</span>
+          <p className="font-roboto text-sm sm:text-base text-grey-98">
+            📍 [Event Location]{" "}
+            <span className="hidden sm:block mx-2">&#124; &#124;</span>
+            <br className="sm:hidden" />
             March 15, 2025 <span className="mx-0">&#124;</span> 7:00 PM
           </p>
         </div>
@@ -32,7 +34,7 @@ const TicketSelection = () => {
           </p>
 
           <div className="flex flex-col p-4 items-center justify-center gap-4 self-stretch border border-[hsl(189,80%,14%)] rounded-3xl bg-[hsl(190,78%,9%)]">
-            <div className="w-full flex items-start justify-between self-stretch content-start gap-x-6">
+            <div className="w-full flex flex-col sm:flex-row items-start justify-between self-stretch content-start gap-6">
               {TICKET_TYPES.map((type) => (
                 <TicketTypeTab key={type.id} type={type} />
               ))}

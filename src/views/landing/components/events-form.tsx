@@ -2,7 +2,7 @@ import FormContainer from "./form-container"
 
 const EventsForm = () => {
   return (
-    <div className="mt-[110px]">
+    <div className="mt-[160px]">
       <FormContainer />
     </div>
   )

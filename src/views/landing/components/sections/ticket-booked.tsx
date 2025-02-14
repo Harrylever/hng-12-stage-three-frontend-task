@@ -15,7 +15,7 @@ const TicketBooked = () => {
         </div>
 
         <div className="py-8 w-full flex items-center justify-center">
-          <div className="relative bg-subtract-bg w-[360px] h-[715px] bg-no-repeat mx-auto bg-center bg-contain p-8">
+          <div className="relative bg-subtract-bg w-[360px] h-[600px] sm:h-[715px] bg-no-repeat mx-auto bg-center bg-contain p-8">
             <div className="w-full border-[1.5px] border-[hsl(189,67%,43%)] rounded-2xl p-[14px] flex flex-col items-center justify-start gap-5">
               <div className="w-full text-center flex flex-col items-center">
                 <h3 className="text-[34px] font-normal font-road-rage text-grey-98">
@@ -36,14 +36,14 @@ const TicketBooked = () => {
                 <img
                   src="/user.png"
                   alt="User image"
-                  width={140}
-                  height={140}
+                  width={100}
+                  height={100}
                 />
               </div>
               <div className="w-full p-1 border border-[#133D44] bg-[#08343C] rounded-lg">
                 <div className="w-full grid grid-cols-2">
                   <div className="flex flex-col items-start gap-1 p-2 border-r border-b border-[#12464E]">
-                    <p className="text-white font-roboto text-xs opacity-[0.33]">
+                    <p className="text-white font-roboto text-[10px] sm:text-xs opacity-[0.33]">
                       Enter your name
                     </p>
                     <p className="font-roboto text-white font-bold text-sm">
@@ -51,7 +51,7 @@ const TicketBooked = () => {
                     </p>
                   </div>
                   <div className="flex flex-col items-start gap-1 p-2 border-b border-[#12464E]">
-                    <p className="text-white font-roboto text-xs opacity-[0.33]">
+                    <p className="text-white font-roboto  text-[10px] sm:text-xs opacity-[0.33]">
                       Enter your email *
                     </p>
                     <p className="font-roboto text-white font-bold text-sm">
@@ -59,26 +59,26 @@ const TicketBooked = () => {
                     </p>
                   </div>
                   <div className="flex flex-col items-start gap-1 p-2 border-r border-b border-[#12464E]">
-                    <p className="text-white font-roboto text-xs opacity-[0.33]">
+                    <p className="text-white font-roboto  text-[10px] sm:text-xs opacity-[0.33]">
                       Ticket Type:
                     </p>
-                    <p className="font-roboto text-white font-bold text-sm">
+                    <p className="font-roboto text-white font-bold  text-[10px] sm:text-sm">
                       VIP
                     </p>
                   </div>
                   <div className="flex flex-col items-start gap-1 p-2 border-b border-[#12464E]">
-                    <p className="text-white font-roboto text-xs opacity-[0.33]">
+                    <p className="text-white font-roboto  text-[10px] sm:text-xs opacity-[0.33]">
                       Ticket for:
                     </p>
-                    <p className="font-roboto text-white font-bold text-sm">
+                    <p className="font-roboto text-white font-bold  text-[10px] sm:text-sm">
                       1
                     </p>
                   </div>
                   <div className="col-span-2 flex flex-col items-start gap-1 p-2">
-                    <p className="text-white font-roboto text-xs opacity-[0.33]">
+                    <p className="text-white font-roboto  text-[10px] sm:text-xs opacity-[0.33]">
                       Special request?
                     </p>
-                    <p className="font-roboto text-white font-bold text-sm">
+                    <p className="font-roboto text-white font-bold  text-[10px] sm:text-sm">
                       Nil ? Or the users sad story they write in there gets this
                       whole space, Max of three rows
                     </p>
@@ -87,7 +87,7 @@ const TicketBooked = () => {
               </div>
             </div>
 
-            <div className="absolute bottom-7 left-1/2 -translate-x-1/2 w-[275px]">
+            <div className="absolute bottom-7 left-1/2 -translate-x-1/2 w-[200px]">
               <img
                 src="/bar-code.svg"
                 alt="Bar Code"

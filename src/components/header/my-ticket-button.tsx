@@ -7,9 +7,9 @@ const MyTicketButton = ({ onClick }: MyTicketButtonProps) => {
     <button
       type="button"
       onClick={onClick}
-      className="bg-white border border-[hsla(65,100%,46%,0.1)] flex items-center gap-2 py-4 px-6 rounded-xl"
+      className="bg-white border border-[hsla(65,100%,46%,0.1)] flex items-center gap-2 py-4 md:py-4 px-4 md:px-6 rounded-xl"
     >
-      <span className="text-black text-base font-normal leading-5 font-jejumyeongjo uppercase">
+      <span className="text-black text-sm md:text-base font-normal leading-5 font-jejumyeongjo uppercase">
         My Tickets
       </span>
       <img

@@ -42,7 +42,7 @@ const FormControlButtons = ({
   }
 
   return (
-    <div className="flex items-center self-stretch gap-6">
+    <div className="w-full flex flex-col-reverse sm:flex-row items-center self-stretch gap-6">
       <button
         type="button"
         onClick={handleSetPrevActiveSection}

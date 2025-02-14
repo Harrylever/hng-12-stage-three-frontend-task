@@ -5,8 +5,8 @@ import FormControlButtons from "../form-control-buttons"
 const AttendeeDetails = () => {
   return (
     <SectionWrapper>
-      <form className="w-full h-fit flex flex-col gap-8 rounded-[32px] bg-[hsla(190,69%,10%)] border border-[hsla(188,69%,18%)] p-6">
-        <div className="w-full pt-6 px-6 pb-12 flex flex-col gap-8 bg-[hsl(190,78%,9%)] border border-[hsl(189,80%,14%)] rounded-3xl">
+      <form className="w-full h-fit flex flex-col gap-8 rounded-[32px] bg-transparent sm:bg-[hsla(190,69%,10%)] border border-transparent sm:border-[hsla(188,69%,18%)] p-0 sm:p-6">
+        <div className="w-full pt-6 px-6 pb-12 flex flex-col gap-8 bg-transparent sm:bg-[hsl(190,78%,9%)] border border-[hsl(189,80%,14%)] rounded-3xl">
           <p className="text-grey-98 font-roboto">Upload Profile Photo</p>
           <div className="relative w-full bg-[hsla(0,0%,0%,0.2)] self-stretch h-[200px]">
             <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 h-[240px] w-[240px] bg-[hsl(188,69%,18%)] border-4 border-[hsla(189,67%,43%,0.5)] rounded-[32px]">

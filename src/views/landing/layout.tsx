@@ -1,4 +1,4 @@
-import AttendeeDetailsContextProvider from "./utils/attendee-details"
+import AttendeeDetailsContextProvider from "./utils/attendee-details-context"
 import EventFormContextProvider from "./utils/form-context"
 import TicketContextProvider from "./utils/ticket-context"
 

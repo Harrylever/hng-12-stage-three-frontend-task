@@ -1,4 +1,4 @@
-import { IAttendeeDetails } from "./attendee-details"
+import { IAttendeeDetails } from "./attendee-details-context"
 import { EventFormProps } from "./form-context"
 import { TicketType } from "./ticket-context"
 

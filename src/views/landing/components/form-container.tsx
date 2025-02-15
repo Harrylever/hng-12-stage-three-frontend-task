@@ -4,7 +4,7 @@ import TicketBooked from "./sections/ticket-booked"
 import TicketSelection from "./sections/ticket-selection"
 import AttendeeDetails from "./sections/attendee-details"
 import { useTicketContext } from "../utils/ticket-context"
-import { useAttendeeDetailsContext } from "../utils/attendee-details"
+import { useAttendeeDetailsContext } from "../utils/attendee-details-context"
 import { EventFormProps, useEventFormContext } from "../utils/form-context"
 import { fetchAttendeeTicketDetails } from "../utils/persist-ticket-details"
 

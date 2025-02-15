@@ -7,7 +7,7 @@ import SectionWrapper from "../section-wrapper"
 import FormControlButtons from "../form-control-buttons"
 import { useTicketContext } from "../../utils/ticket-context"
 import { useEventFormContext } from "../../utils/form-context"
-import { useAttendeeDetailsContext } from "../../utils/attendee-details"
+import { useAttendeeDetailsContext } from "../../utils/attendee-details-context"
 import { persistAttendeeTicketDetails } from "../../utils/persist-ticket-details"
 
 const AttendeeDetails = () => {

@@ -13,13 +13,14 @@ const TicketBooked = () => {
 
   const { ticketType, resetTicketType } = useTicketContext()
 
-  const { attendeeDetails } = useAttendeeDetailsContext()
+  const { attendeeDetails, resetAttendeeDetails } = useAttendeeDetailsContext()
 
   const handleBookAnotherTicket = () => {
     const response = confirm("Are you sure you want to leave?")
     if (!response) return
     clearFormData()
     resetTicketType()
+    resetAttendeeDetails()
     clearPersistedStorage()
     setActiveSection("ticket-selection")
   }
